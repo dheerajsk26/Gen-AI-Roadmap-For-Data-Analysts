@@ -28,20 +28,6 @@ Each stage includes 4 concrete tasks and one practice project designed to leave 
 - Zero dependencies — a single HTML file with inline CSS and vanilla JavaScript
 - No build step, no backend, no tracking
 
-## Usage
-
-Clone the repo and open the file directly in a browser:
-
-```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
-open genai-for-data-analytics-roadmap.html   # macOS
-# or just double-click the file / drag it into a browser tab
-```
-
-No server or install required.
-
-> **Note:** Progress is kept in memory for the current browser session only and is not saved between reloads. If you want persistence, see [Ideas for extending](#ideas-for-extending) below.
 
 ## Who this is for
 
@@ -50,14 +36,6 @@ Data analysts or data engineers who:
 - Have used an LLM chat interface and made at least one API call
 - Want a structured path toward using generative AI credibly in analytics work, not just as a novelty
 
-## Ideas for extending
-
-- Persist progress with `localStorage` or a small backend
-- Add a "time spent" field per stage
-- Export completed checklist as a PDF or markdown summary for a resume/portfolio
-- Add links to specific external resources per task
-
-Contributions and forks welcome — open an issue or a PR if you have suggestions.
 
 ## License
 
