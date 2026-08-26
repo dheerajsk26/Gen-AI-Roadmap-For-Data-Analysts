@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gen AI for Data Analytics — Learning Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0E0D;
+    --panel:#121917;
+    --panel-hi:#182220;
+    --line:#233330;
+    --line-soft:#1A2624;
+    --text:#E7EEEA;
+    --text-dim:#9CB0AA;
+    --text-faint:#5F736D;
+    --amber:#E8A33D;
+    --amber-dim:#7A5A28;
+    --teal:#4FBBA6;
+    --teal-dim:#255048;
+    --red:#D9695C;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans',sans-serif;
+    padding:32px 20px 60px;
+  }
+  .wrap{max-width:880px;margin:0 auto;}
+  .top{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:16px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+    margin-bottom:8px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--amber);
+    text-transform:uppercase;
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:26px;
+    font-weight:600;
+    margin:0;
+    line-height:1.3;
+  }
+  .subtitle{color:var(--text-dim);font-size:14px;margin-top:8px;max-width:520px;line-height:1.55;}
+  .progress-box{
+    font-family:'IBM Plex Mono',monospace;
+    text-align:right;
+    min-width:150px;
+  }
+  .progress-num{font-size:30px;color:var(--amber);font-weight:600;}
+  .progress-label{font-size:11px;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;}
+  .progress-track{
+    width:150px;height:5px;background:var(--line-soft);
+    border-radius:3px;margin-top:8px;overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;background:var(--amber);width:0%;
+    transition:width 0.4s ease;
+  }
+
+  .query-strip{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--text-faint);
+    background:var(--panel);
+    border:1px solid var(--line-soft);
+    border-radius:6px;
+    padding:14px 16px;
+    margin:22px 0 34px;
+    line-height:1.9;
+    overflow-x:auto;
+    white-space:pre;
+  }
+  .query-strip .clause{color:var(--text-faint);}
+  .query-strip .clause.active{color:var(--amber);}
+  .query-strip .clause.done{color:var(--teal);}
+
+  .phase{
+    position:relative;
+    padding-left:34px;
+    margin-bottom:6px;
+  }
+  .phase::before{
+    content:'';
+    position:absolute;
+    left:10px;top:38px;bottom:-6px;
+    width:1px;background:var(--line);
+  }
+  .phase:last-child::before{display:none;}
+  .phase-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    cursor:pointer;
+    padding:14px 16px 14px 0;
+    user-select:none;
+  }
+  .dot{
+    position:absolute;left:0;top:16px;
+    width:21px;height:21px;border-radius:50%;
+    background:var(--panel);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;color:var(--text-faint);
+    transition:all 0.25s ease;
+    flex-shrink:0;
+  }
+  .dot.complete{background:var(--teal-dim);border-color:var(--teal);color:var(--teal);}
+  .phase-clause{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;color:var(--amber);letter-spacing:0.06em;
+  }
+  .phase-title{font-size:16px;font-weight:500;margin:2px 0 0;}
+  .phase-meta{font-size:12px;color:var(--text-faint);margin-left:auto;white-space:nowrap;}
+  .chevron{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--text-faint);
+    transition:transform 0.25s ease;
+    flex-shrink:0;
+  }
+  .phase.open .chevron{transform:rotate(90deg);}
+
+  .phase-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+  .phase.open .phase-body{max-height:1400px;}
+  .phase-inner{
+    background:var(--panel);
+    border:1px solid var(--line-soft);
+    border-radius:8px;
+    padding:16px 18px 18px;
+    margin:2px 0 18px;
+  }
+  .phase-desc{font-size:13px;color:var(--text-dim);line-height:1.6;margin:0 0 14px;}
+
+  .item{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:8px 0;
+    border-top:1px solid var(--line-soft);
+  }
+  .item:first-of-type{border-top:none;}
+  .check{
+    width:16px;height:16px;border-radius:4px;
+    border:1px solid var(--text-faint);
+    flex-shrink:0;margin-top:2px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:transparent;
+    transition:all 0.15s ease;
+  }
+  .check.checked{background:var(--teal);border-color:var(--teal);color:#06231d;}
+  .item-text{font-size:13.5px;line-height:1.55;color:var(--text);cursor:pointer;}
+  .item.checked .item-text{color:var(--text-faint);text-decoration:line-through;}
+
+  .project-box{
+    margin-top:14px;
+    background:var(--panel-hi);
+    border-left:2px solid var(--amber);
+    border-radius:0 6px 6px 0;
+    padding:10px 14px;
+  }
+  .project-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;color:var(--amber);letter-spacing:0.08em;text-transform:uppercase;margin:0 0 4px;
+  }
+  .project-text{font-size:13px;color:var(--text-dim);line-height:1.55;margin:0;}
+
+  .footer-note{
+    margin-top:28px;
+    font-size:12.5px;
+    color:var(--text-faint);
+    border-top:1px solid var(--line);
+    padding-top:16px;
+    line-height:1.6;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <p class="eyebrow">roadmap · gen ai for data analysts</p>
+      <h1>SELECT skill FROM roadmap<br>WHERE goal = 'hired'</h1>
+      <p class="subtitle">Six stages, framed as a query pipeline, for layering generative AI onto the SQL and Python work you already do — built for job hunting in the Indian data analytics market.</p>
+    </div>
+    <div class="progress-box">
+      <span class="progress-num" id="pctNum">0%</span>
+      <div class="progress-label">complete</div>
+      <div class="progress-track"><div class="progress-fill" id="pctFill"></div></div>
+    </div>
+  </div>
+
+  <div class="query-strip" id="queryStrip"></div>
+
+  <div id="phases"></div>
+
+  <div class="footer-note">
+    Suggested pace: 8–10 weeks, part-time, alongside interviewing. Tick items off as you go — your progress here resets if you reload, so treat this as a working session, not permanent storage.
+  </div>
+
+</div>
+
+<script>
+const DATA = [
+  {
+    clause: "SELECT",
+    title: "Sharpen the foundations you already have",
+    meta: "~1 week",
+    desc: "You've used an LLM API and know basic prompting. This stage tightens that into something reliable enough to build on.",
+    items: [
+      "Learn how context windows, tokens, and temperature actually affect output quality",
+      "Practice structured prompting for data tasks: few-shot examples, step-by-step reasoning for SQL debugging",
+      "Redo your API experiment, but with a system prompt, explicit output format, and error handling",
+      "Read Anthropic's and OpenAI's prompt engineering guides end to end, not just skimmed"
+    ],
+    project: "Take one messy SQL query you've written before and have an LLM API call (not the chat UI) explain, then optimize it — compare its reasoning to yours."
+  },
+  {
+    clause: "FROM",
+    title: "Wire an LLM into your existing stack",
+    meta: "~1.5 weeks",
+    desc: "Move the LLM out of a chat window and into your normal workflow: SQL, pandas, and scripts.",
+    items: [
+      "Use an LLM to generate and debug SQL against a real schema, not just paste queries into chat",
+      "Call the LLM API from Python and pass it a pandas dataframe summary for cleaning or profiling suggestions",
+      "Try basic tool use / function calling so the model can request specific data instead of guessing",
+      "Learn where LLM-generated SQL quietly breaks: wrong joins, invented columns, ignored NULLs"
+    ],
+    project: "Build a small 'ask your database a question in English' tool against a sample schema like Chinook or Northwind — schema in, question in, working SQL out."
+  },
+  {
+    clause: "JOIN",
+    title: "Learn retrieval and grounding (RAG basics)",
+    meta: "~2 weeks",
+    desc: "This is the piece that separates 'used ChatGPT' from 'can build something enterprise-relevant' on a resume.",
+    items: [
+      "Understand embeddings and vector search conceptually — no need to derive the math",
+      "Build a minimal RAG pipeline: chunk documents, embed, retrieve top matches, generate an answer",
+      "Learn why grounding reduces hallucination, and why that matters for a business audience",
+      "Try a vector store (even a simple local one) rather than only theory"
+    ],
+    project: "Build RAG over a data dictionary or FAQ set — e.g. 'what does this column mean' answered by the model instead of a wiki search."
+  },
+  {
+    clause: "WHERE",
+    title: "Validate and filter — the analyst's real edge",
+    meta: "~1 week",
+    desc: "Anyone can generate a query with AI. What employers actually want is someone who catches when it's wrong.",
+    items: [
+      "Build a personal checklist for reviewing AI-generated SQL and Python before trusting it",
+      "Write simple test cases or eval checks for LLM output correctness",
+      "Study common failure modes: silent wrong joins, fabricated columns, misread aggregations",
+      "Practice explaining, out loud, why a specific AI-generated answer is wrong"
+    ],
+    project: "Take five AI-generated SQL queries against a schema you know well, and write up which are subtly broken and why — this becomes an interview talking point."
+  },
+  {
+    clause: "GROUP BY",
+    title: "Automate a real workflow with agentic steps",
+    meta: "~2 weeks",
+    desc: "Group your individual skills into one pipeline that runs with less manual glue.",
+    items: [
+      "Understand agent basics: multi-step reasoning, tool use, and simple orchestration",
+      "Try a lightweight framework (or a hand-rolled loop) that chains: pull data → analyze → summarize",
+      "Automate one repetitive analyst task end-to-end, not just a demo notebook",
+      "Add a human-check step so the automation doesn't ship silently wrong output"
+    ],
+    project: "Build one pipeline: pull data from a DB, run analysis, and have an LLM write a plain-English summary — delivered as a doc, email draft, or Slack-style message."
+  },
+  {
+    clause: "ORDER BY",
+    title: "Package it for the job market",
+    meta: "~1–1.5 weeks",
+    desc: "Convert the last five stages into things a recruiter or interviewer in India's DA/DE market can actually see and question you on.",
+    items: [
+      "Turn 1–2 projects above into a portfolio repo with a clear README",
+      "Write 2–3 STAR-format stories: 'I used GenAI to do X faster / more reliably'",
+      "Update your resume and LinkedIn with the specific tools and concepts you used, not just 'AI'",
+      "Prepare an answer for when NOT to use AI in analytics — this signals judgment, not just tool use"
+    ],
+    project: "Mock-interview yourself (or ask me) on explaining one project end to end in under two minutes, including a mistake the AI made and how you caught it."
+  }
+];
+
+const strip = document.getElementById('queryStrip');
+const phasesEl = document.getElementById('phases');
+let state = DATA.map(p => p.items.map(() => false));
+
+function renderStrip(){
+  strip.innerHTML = DATA.map((p, i) => {
+    const total = state[i].length;
+    const doneCount = state[i].filter(Boolean).length;
+    const cls = doneCount === total ? 'clause done' : (doneCount > 0 ? 'clause active' : 'clause');
+    return '<span class="' + cls + '">' + p.clause + '</span>' + (i < DATA.length - 1 ? '\n' : '');
+  }).join('');
+}
+
+function renderPhases(){
+  phasesEl.innerHTML = DATA.map((p, pi) => {
+    const doneCount = state[pi].filter(Boolean).length;
+    const total = p.items.length;
+    const complete = doneCount === total;
+    const items = p.items.map((it, ii) => {
+      const checked = state[pi][ii];
+      return '<div class="item ' + (checked ? 'checked' : '') + '" data-p="' + pi + '" data-i="' + ii + '">' +
+        '<div class="check ' + (checked ? 'checked' : '') + '">' + (checked ? '&#10003;' : '') + '</div>' +
+        '<div class="item-text">' + it + '</div></div>';
+    }).join('');
+    return '<div class="phase" data-phase="' + pi + '">' +
+      '<div class="dot ' + (complete ? 'complete' : '') + '">' + (complete ? '&#10003;' : (pi + 1)) + '</div>' +
+      '<div class="phase-head" data-toggle="' + pi + '">' +
+        '<div style="flex:1">' +
+          '<div class="phase-clause">' + p.clause + '</div>' +
+          '<div class="phase-title">' + p.title + '</div>' +
+        '</div>' +
+        '<div class="phase-meta">' + doneCount + '/' + total + ' &middot; ' + p.meta + '</div>' +
+        '<div class="chevron">&#8250;</div>' +
+      '</div>' +
+      '<div class="phase-body">' +
+        '<div class="phase-inner">' +
+          '<p class="phase-desc">' + p.desc + '</p>' +
+          items +
+          '<div class="project-box"><p class="project-label">practice project</p><p class="project-text">' + p.project + '</p></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  attachHandlers();
+}
+
+function attachHandlers(){
+  document.querySelectorAll('[data-toggle]').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = el.getAttribute('data-toggle');
+      const phaseEl = document.querySelector('.phase[data-phase="' + idx + '"]');
+      phaseEl.classList.toggle('open');
+    });
+  });
+  document.querySelectorAll('.item').forEach(el => {
+    el.addEventListener('click', () => {
+      const p = parseInt(el.getAttribute('data-p'));
+      const i = parseInt(el.getAttribute('data-i'));
+      state[p][i] = !state[p][i];
+      const openPhases = new Set();
+      document.querySelectorAll('.phase.open').forEach(ph => openPhases.add(ph.getAttribute('data-phase')));
+      renderPhases();
+      renderStrip();
+      updateProgress();
+      openPhases.forEach(idx => {
+        const ph = document.querySelector('.phase[data-phase="' + idx + '"]');
+        if(ph) ph.classList.add('open');
+      });
+    });
+  });
+}
+
+function updateProgress(){
+  const total = state.reduce((a, b) => a + b.length, 0);
+  const done = state.reduce((a, b) => a + b.filter(Boolean).length, 0);
+  const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+  document.getElementById('pctNum').textContent = pct + '%';
+  document.getElementById('pctFill').style.width = pct + '%';
+}
+
+renderStrip();
+renderPhases();
+updateProgress();
+document.querySelector('.phase[data-phase="0"]').classList.add('open');
+</script>
+</body>
+</html>
