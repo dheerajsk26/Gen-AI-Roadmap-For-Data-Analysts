@@ -1,6 +1,8 @@
 # Gen AI for Data Analytics — Learning Roadmap
 
-An interactive, single-file HTML roadmap for data analysts learning to apply generative AI to their existing SQL and Python workflow. Framed as a SQL query pipeline — six stages, each named after a clause (`SELECT`, `FROM`, `JOIN`, `WHERE`, `GROUP BY`, `ORDER BY`) — with checkable tasks, a progress tracker, and a hands-on project per stage.
+An interactive, single-file HTML roadmap for data analysts learning to apply generative AI to their existing SQL and Python workflow. Framed as a SQL query pipeline — six stages, each named after a clause (`SELECT`, `FROM`, `JOIN`, `WHERE`, `GROUP BY`, `ORDER BY`) — with checkable tasks, a progress tracker, and a hands-on project per stage. 
+
+Link: https://dheerajsk26.github.io/Gen-AI-Roadmap-For-Data-Analysts/
 
 ![progress](https://img.shields.io/badge/stages-6-E8A33D) ![type](https://img.shields.io/badge/format-single--file%20HTML-4FBBA6)
 
